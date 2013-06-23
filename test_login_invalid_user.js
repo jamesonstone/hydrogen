@@ -1,5 +1,7 @@
 /**
- * This test navigates to voxy.com/u/login (login page) and
+ * tools: casperjs/phantomjs
+ *
+ * This test navigates to voxy.com/u/login/ ("login" page) and
  * attempts to login with an invalid email/password
  *
  * @author J.Stone
@@ -29,6 +31,5 @@ casper.then(function() {
 
 
 casper.run(function() {
-	//this.test.done(1);
 	this.test.renderResults(true);
 });
