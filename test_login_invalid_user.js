@@ -14,7 +14,15 @@ console.log('1.Navigate to /u/login');
 console.log('2.Login with invalid username [user: voxytest/pwd:things]');
 
 casper.start(login, function() {
-	this.echo(this.getCurrentUrl());
+	this.echo('current url: ' + this.getCurrentUrl());
+
+	//verify the error text isn't displayed before attempting to login
+	this.test.assertTextDoesntExist('Please enter a correct username and password. ' +
+	 'Note that both fields are case-sensitive.', 'error text is NOT displayed yet');
+});
+
+casper.then(function() {
+	//fill out and submit login form
 	this.fill('form#ajax-login-form', {
 		'username':    'voxytest',
 		'password':    'things'
@@ -24,9 +32,13 @@ casper.start(login, function() {
 casper.then(function() {
 	this.test.assertEquals(this.getCurrentUrl(), login, 'current url and login page url match');
 
-	//add better logic to ensure error text is displayed with invalid username
+	//make sure error text is displayed
+	this.test.assertTextExists('Please enter a correct username and password. ' +
+	 'Note that both fields are case-sensitive.', 'error text is displayed');
 	
-	this.test.assertExists(x('//*[@id="body"]/div[2]/div/div/div/div/ul/li/text()'));
+	//verify xpath to error text
+	this.test.assertExists(x('//*[@id="body"]/div[2]/div/div/div/div/ul/li'), 'xpath to error text ' +
+	 'is correct');
 });
 
 
