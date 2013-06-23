@@ -27,7 +27,7 @@ casper.then(function() {
 	var check_url = this.getCurrentUrl();
 	this.echo('current url: ' + check_url);
 
-	//check for the substring "guide" in the url
+	//check for the substring "guide/recommend/" in the url
 	if(check_url.indexOf("guide/recommend/") === -1) {
 		casper.test.fail('url does not contain guide/recommend/');
 	} else {
